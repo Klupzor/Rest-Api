@@ -1,20 +1,15 @@
 const express = require ('express')
 const router = express.Router();
+const Task = require('../models/task')
 
-const model = require('../models/task')()
-
-var datos = new model({
-    title: 'primera tarea',
-    description: 'primera tarea en mongo',
-    status: true
-})
 
 router.get('/', (req, res) => {
 
-    res.send('hola')
-    model.find((err, tasks) => {
+    // res.send('hola')
+    Task.find((err, tasks) => {
         if (err) return console.error(err)
-        console.log(tasks)
+        // console.log(tasks)
+        res.json(tasks)
 
     })
 })
@@ -22,9 +17,10 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     let body = req.body
 
-    datos.save((err, task) => {
+    Task.create(body, (err, task) => {
         if (err) return console.error(err)
-        res.redirect('/')
+        // res.json(post)
+        res.send('guardado')
     })
 
 })

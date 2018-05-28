@@ -89,7 +89,7 @@ eval("const express = __webpack_require__(/*! express */ \"express\")\r\nconst p
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\")\r\n\r\nlet db\r\n\r\nmodule.exports = function Connection(){\r\n    \r\n    if (!db) {\r\n        mongoose.connect('mongodb://klupzor:12345qwer@ds135810.mlab.com:35810/test-api-glumsus')\r\n        db = mongoose.connection\r\n    }\r\n\r\n    return db\r\n}\n\n//# sourceURL=webpack:///./src/libs/db-connection.js?");
+eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\")\r\n\r\nlet db\r\n\r\nmodule.exports = function Connection(){\r\n    \r\n    if (!db) {\r\n        mongoose.connect('mongodb://klupzor:12345qwer@ds135810.mlab.com:35810/test-api-glumsus')\r\n        .then(() =>  console.log('connection succesful'))\r\n        .catch((err) => console.error(err));\r\n        db = mongoose.connection\r\n    }\r\n\r\n    return db\r\n}\n\n//# sourceURL=webpack:///./src/libs/db-connection.js?");
 
 /***/ }),
 
@@ -100,7 +100,7 @@ eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\")\r\n\r\n
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = function() {\r\n\r\n    var db = __webpack_require__(/*! ../libs/db-connection */ \"./src/libs/db-connection.js\")();\r\n    var Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\r\n\r\n    var Task = Schema({\r\n        title: String,\r\n        description: String,\r\n        status: Boolean\r\n\r\n    })\r\n\r\n    return db.model('task', Task)\r\n    \r\n}\n\n//# sourceURL=webpack:///./src/models/task.js?");
+eval("    var db = __webpack_require__(/*! ../libs/db-connection */ \"./src/libs/db-connection.js\")();\r\n    var Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\r\n\r\n    var TaskSchema = Schema({\r\n        title: String,\r\n        description: String,\r\n        status: Boolean\r\n\r\n    })\r\n\r\n\r\n     module.exports = db.model('task', TaskSchema)\r\n    \r\n    \r\n\n\n//# sourceURL=webpack:///./src/models/task.js?");
 
 /***/ }),
 
@@ -111,7 +111,7 @@ eval("module.exports = function() {\r\n\r\n    var db = __webpack_require__(/*! 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const express = __webpack_require__ (/*! express */ \"express\")\r\nconst router = express.Router();\r\n\r\nconst model = __webpack_require__(/*! ../models/task */ \"./src/models/task.js\")()\r\n\r\nvar datos = new model({\r\n    title: 'primera tarea',\r\n    description: 'primera tarea en mongo',\r\n    status: true\r\n})\r\n\r\nrouter.get('/', (req, res) => {\r\n\r\n    res.send('hola')\r\n    model.find((err, tasks) => {\r\n        if (err) return console.error(err)\r\n        console.log(tasks)\r\n\r\n    })\r\n})\r\n\r\nrouter.post('/', (req, res) => {\r\n    let body = req.body\r\n\r\n    datos.save((err, task) => {\r\n        if (err) return console.error(err)\r\n        res.redirect('/')\r\n    })\r\n\r\n})\r\n\r\nmodule.exports = router;\n\n//# sourceURL=webpack:///./src/routes/index.js?");
+eval("const express = __webpack_require__ (/*! express */ \"express\")\r\nconst router = express.Router();\r\n\r\nconst Task = __webpack_require__(/*! ../models/task */ \"./src/models/task.js\")\r\n\r\n// var datos = new model({\r\n//     title: 'primera tarea',\r\n//     description: 'primera tarea en mongo',\r\n//     status: true\r\n// })\r\n\r\nrouter.get('/', (req, res) => {\r\n\r\n    // res.send('hola')\r\n    Task.find((err, tasks) => {\r\n        if (err) return console.error(err)\r\n        // console.log(tasks)\r\n        res.json(tasks)\r\n\r\n    })\r\n})\r\n\r\nrouter.post('/', (req, res) => {\r\n    let body = req.body\r\n\r\n    Task.create(body, (err, task) => {\r\n        if (err) return console.error(err)\r\n        // res.json(post)\r\n        res.send('guardado')\r\n    })\r\n\r\n})\r\n\r\nmodule.exports = router;\n\n//# sourceURL=webpack:///./src/routes/index.js?");
 
 /***/ }),
 
