@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const morgan = require ('morgan')
 
 const indexRoutes = require('./routes/index.js')
 
@@ -9,8 +10,10 @@ const indexRoutes = require('./routes/index.js')
 app.set('port', process.env.PORT || 3000)
 
 //middlewares
+app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
 
 //routes
 app.use('/', indexRoutes)
