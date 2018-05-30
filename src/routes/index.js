@@ -9,9 +9,19 @@ router.get('/', (req, res) => {
         res.json(tasks)
     })
 })
+/* GET SINGLE PRODUCT BY USER */
 
+router.get('/:title', function(req, res, next) {
+    var title = req.params.title
+    Task.findOne({title : title}, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
+    // console.log(req.params.title)
+  });
 /* GET SINGLE PRODUCT BY ID */
-router.get('/:id', function(req, res, next) {
+
+  router.get('/:id', function(req, res, next) {
     Task.findById(req.params.id, function (err, post) {
       if (err) return next(err);
       res.json(post);
