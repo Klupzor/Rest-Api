@@ -1,6 +1,7 @@
 const express = require ('express')
 const router = express.Router();
 const Task = require('../models/task')
+const Business = require('../models/business')
 
 
 router.get('/', (req, res) => {
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/:title', function(req, res, next) {
     var title = req.params.title
-    Task.findOne({title : title}, function (err, post) {
+    Business.findOne({user : title}, function (err, post) {
       if (err) return next(err);
       res.json(post);
     });

@@ -4,6 +4,7 @@ const app = express()
 const morgan = require ('morgan')
 
 const indexRoutes = require('./routes/index.js')
+const registerRoutes = require ('./routes/register.js')
 
 
 // settings 
@@ -17,6 +18,8 @@ app.use(express.urlencoded({extended: false}))
 
 //routes
 app.use('/', indexRoutes)
+app.use('/reg', registerRoutes)
+
 
 //static files
 // app.use(express.static(path.join(__dirname, 'dist')))
