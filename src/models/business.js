@@ -12,7 +12,8 @@ var BusinessSchema = Schema({
         lowercase: true
     },
     email: {type: String, lowercase: true},
-    phone: Number
+    phone: Number,
+    services: Boolean
 })
 
 

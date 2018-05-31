@@ -14,5 +14,25 @@ router.post('/', (req, res) => {
 
 })
 
+//   SAVE Business .........................
+router.put('/:user', function(req, res, next) {
+    var user = req.params.user
+    Business.findOneAndUpdate({user : user}, req.body, function (err, post) {
+        if (err) return next(err);
+    //   res.json(post);
+        res.send('Modificado!')
+    
+    });
+  });
+
+//   router.get('/:title', function(req, res, next) {
+//     var title = req.params.title
+//     Business.findOne({user : title}, function (err, post) {
+//       if (err) return next(err);
+//       res.json(post);
+//     });
+//     // console.log(req.params.title)
+//   });
+
 module.exports = router
 
