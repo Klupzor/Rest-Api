@@ -16,6 +16,6 @@
     })
 
 
-     module.exports = db.model('person', PersonSchema)
+     module.exports = db.model('Person', PersonSchema)
     
     
