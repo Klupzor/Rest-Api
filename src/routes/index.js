@@ -1,11 +1,11 @@
 const express = require ('express')
 const router = express.Router();
-const Task = require('../models/task')
+const Person = require('../models/person')
 const Business = require('../models/business')
 
 
 router.get('/', (req, res) => {
-    Task.find((err, tasks) => {
+    Person.find((err, tasks) => {
         if (err) return console.error(err)
         res.json(tasks)
     })
@@ -23,7 +23,7 @@ router.get('/:title', function(req, res, next) {
 /* GET SINGLE PRODUCT BY ID */
 
   router.get('/:id', function(req, res, next) {
-    Task.findById(req.params.id, function (err, post) {
+    Person.findById(req.params.id, function (err, post) {
       if (err) return next(err);
       res.json(post);
     });
@@ -33,7 +33,7 @@ router.get('/:title', function(req, res, next) {
 router.post('/', (req, res) => {
     let body = req.body
 
-    Task.create(body, (err, task) => {
+    Person.create(body, (err, task) => {
         if (err) return console.error(err)
         // res.json(body)
         res.send('guardado')
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
 
 /* UPDATE PRODUCT */
 router.put('/:id', function(req, res, next) {
-    Task.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+    Person.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
         if (err) return next(err);
     //   res.json(post);
         res.send('Modificado!')
@@ -53,7 +53,7 @@ router.put('/:id', function(req, res, next) {
 
   /* DELETE PRODUCT */
 router.delete('/:id', function(req, res, next) {
-    Task.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+    Person.findByIdAndRemove(req.params.id, req.body, function (err, post) {
         if (err) return next(err);
         res.send('borrado!')
       
