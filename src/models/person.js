@@ -4,10 +4,12 @@
     var PersonSchema = Schema({
         user: {         //usuario que se usa para el link del negocio
             type: String,
-            lowercase: true
+            lowercase: true,
+            unique: true,
+            required: true
         },
         created: { type: Date, default: Date.now },
-        emailPerson: {type: String, lowercase: true},
+        emailPerson: {type: String, lowercase: true, required: true},
         namePerson: String,
         phonePerson: Number,
         password: String,

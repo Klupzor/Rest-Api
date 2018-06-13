@@ -8,12 +8,15 @@ router.post('/', (req, res) => {
     let body = req.body
 
     Business.create(body, (err, task) => {
-        if (err) return console.error(err)
+        if (err) return console.error(err) 
         // res.json(body)
         // res.send('guardado')
     })
     Person.create(body, (err, task) => {
-        if (err) return console.error(err)
+        if (err){
+            res.send(err.message)
+            return console.error(err)
+        } 
         // res.json(body)
         res.send('guardado')
     })

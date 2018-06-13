@@ -8,7 +8,8 @@ var BusinessSchema = Schema({
     panel: [String], //ciudad
     user: {         //usuario que se usa para el link del negocio
         type: String,
-        lowercase: true
+        lowercase: true,
+        unique: true
     },
     email: {type: String, lowercase: true},
     phone: Number,
